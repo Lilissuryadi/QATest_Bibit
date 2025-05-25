@@ -38,12 +38,12 @@ public class JsonPlaceholderTest {
 
         response.then().statusCode(201);
 
-        // ✅ Verify response matches request
+        // Verify response matches request
         response.then().body("title", equalTo("Learn API Testing"));
         response.then().body("body", equalTo("Practicing API testing with JSONPlaceholder"));
         response.then().body("userId", equalTo(101));
 
-        // ✅ Validate JSON Schema
+        //Validate JSON Schema
         response.then().body(matchesJsonSchemaInClasspath("post-schema.json"));
     }
 
@@ -58,12 +58,12 @@ public class JsonPlaceholderTest {
 
         List<Map<String, Object>> posts = response.jsonPath().getList("");
 
-        // ✅ Check each post has non-null ID
+        //Check each post has non-null ID
         for (Map<String, Object> post : posts) {
             assertThat(post.get("id"), is(notNullValue()));
         }
 
-        // ✅ Validate JSON Schema for the entire array
+        //Validate JSON Schema for the entire array
         response.then().body(matchesJsonSchemaInClasspath("posts-array-schema.json"));
     }
 
@@ -76,10 +76,10 @@ public class JsonPlaceholderTest {
 
         response.then().statusCode(200);
 
-        // ✅ JSONPlaceholder returns empty object on delete
+        //JSONPlaceholder returns empty object on delete
         assertThat(response.getBody().asString().trim(), equalTo("{}"));
 
-        // ✅ Validate JSON Schema for the empty object
+        //Validate JSON Schema for the empty object
         response.then().body(matchesJsonSchemaInClasspath("empty-object-schema.json"));
     }
 
@@ -105,7 +105,7 @@ public class JsonPlaceholderTest {
         response.then().body("body", equalTo("This is the updated body content."));
         response.then().body("userId", equalTo(99));
 
-        // ✅ Validate JSON Schema
+        //Validate JSON Schema
         response.then().body(matchesJsonSchemaInClasspath("post-schema.json"));
     }
 }
